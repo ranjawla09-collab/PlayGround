@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#10131c" />
+  <title>Blockcraft — Make something legendary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Blockcraft home"><span class="brand-mark"><i></i><i></i><i></i></span><span>blockcraft<span class="brand-dot">.</span></span></a>
+      <div class="project-crumb"><span class="crumb-slash">/</span><span class="project-name">Skyline Scramble</span><span class="saved-dot"></span><span class="saved-label">All changes saved</span></div>
+      <nav class="mode-switch" aria-label="Workspace mode"><button class="mode-btn active" data-mode="studio"><span class="mode-icon">▦</span> Studio</button><button class="mode-btn" data-mode="play"><span class="mode-icon play-glyph">▶</span> Play</button></nav>
+      <div class="top-actions"><button class="icon-btn undo-btn" title="Undo" aria-label="Undo">↶</button><button class="icon-btn redo-btn" title="Redo" aria-label="Redo">↷</button><span class="top-divider"></span><button class="invite-btn"><span>＋</span> Invite</button><button class="publish-btn">Publish <span>↗</span></button><button class="avatar user-avatar" aria-label="Your profile">J</button></div>
+    </header>
+
+    <main class="workspace">
+      <aside class="left-panel panel studio-only">
+        <div class="panel-heading"><div><span class="eyebrow">YOUR WORLD</span><h2>Explorer</h2></div><button class="small-icon" title="Add object">＋</button></div>
+        <div class="search-box"><span>⌕</span><input id="searchObjects" placeholder="Find an object" /></div>
+        <div class="scene-tree">
+          <div class="tree-row tree-root"><span class="chevron open">⌄</span><span class="tree-icon globe-icon">◉</span><span>Workspace</span><span class="tree-count">12</span></div>
+          <div class="tree-children">
+            <button class="tree-row" data-object="Spawn Pad"><span class="tree-icon spawn-icon">⌂</span><span>Spawn Pad</span></button>
+            <button class="tree-row selected" data-object="Cloud Platform"><span class="tree-icon cube-icon">▰</span><span>Cloud Platform</span><span class="tree-more">•••</span></button>
+            <button class="tree-row" data-object="Jump Pad"><span class="tree-icon spring-icon">⌁</span><span>Jump Pad</span></button>
+            <button class="tree-row" data-object="Checkpoint"><span class="tree-icon flag-icon">⚑</span><span>Checkpoint</span></button>
+            <button class="tree-row" data-object="Star Collectible"><span class="tree-icon star-icon">✦</span><span>Star Collectible</span></button>
+            <button class="tree-row" data-object="Cloud Platform"><span class="tree-icon cube-icon purple">▰</span><span>Cloud Platform</span></button>
+            <button class="tree-row" data-object="Finish Portal"><span class="tree-icon portal-icon">◉</span><span>Finish Portal</span></button>
+          </div>
+          <div class="tree-row tree-root muted"><span class="chevron">›</span><span class="tree-icon">▤</span><span>Lighting</span></div>
+          <div class="tree-row tree-root muted"><span class="chevron">›</span><span class="tree-icon">♟</span><span>Players</span><span class="online-count">2</span></div>
+        </div>
+        <div class="panel-bottom"><div class="storage-icon">◇</div><div><span class="storage-title">Your creations</span><span class="storage-sub">3 worlds · 2.4 MB</span></div><span class="bottom-arrow">›</span></div>
+      </aside>
+
+      <section class="main-stage">
+        <div class="stage-topline">
+          <div class="stage-tabs"><button class="stage-tab active"><span class="tab-dot"></span> Skyline Scramble <span class="tab-close">×</span></button><button class="new-tab" title="New tab">＋</button></div>
+          <div class="viewport-tools"><button class="view-chip active" title="Perspective view">◈ <span>3D</span></button><button class="view-chip" title="Grid">▦</button><span class="tool-divider"></span><button class="view-chip" id="zoomOut" title="Zoom out">−</button><span class="zoom-label">100%</span><button class="view-chip" id="zoomIn" title="Zoom in">＋</button><button class="expand-view" title="Focus viewport">⛶</button></div>
+        </div>
+        <div class="viewport" id="viewport">
+          <div class="sky-glow"></div><div class="scene-label"><span class="live-pulse"></span><span id="sceneStatus">EDITING WORLD</span></div>
+          <canvas id="gameCanvas" aria-label="Interactive game world"></canvas>
+          <div class="canvas-hint studio-only"><span class="hint-key">CLICK</span> to place <span class="hint-sep">·</span> <span class="hint-key">DRAG</span> to orbit <span class="hint-sep">·</span> <span class="hint-key">WASD</span> to move camera</div>
+          <div class="play-hud" id="playHud"><div class="hud-stat"><span class="hud-star">✦</span><div><strong id="starCount">0</strong><small>STARS</small></div></div><div class="hud-stat timer-stat"><span class="hud-clock">◷</span><div><strong id="timerValue">00:00</strong><small>TIME</small></div></div><button id="resetButton" class="reset-button" title="Restart">↻</button></div>
+          <div class="play-message" id="playMessage"><span class="message-icon">✦</span><span>Collect the stars and reach the portal!</span></div>
+          <div class="touch-controls" id="touchControls"><button data-control="up">▲</button><div><button data-control="left">◀</button><button data-control="down">▼</button><button data-control="right">▶</button></div><button class="touch-jump" data-control="jump">JUMP</button></div>
+          <div class="other-player player-bubble"><span class="mini-avatar">M</span><span>Mia is here</span></div>
+          <div class="collab-cursor"><span class="cursor-arrow">➤</span><span>mia.builds</span></div>
+          <div class="game-over" id="gameOver"><div class="win-card"><span class="win-sparkle">✦</span><p class="eyebrow">LEVEL COMPLETE</p><h2>You did it!</h2><p class="win-copy">You conquered the Skyline Scramble.</p><div class="win-score"><span>✦ <b id="finalStars">0</b> stars</span><span>◷ <b id="finalTime">00:00</b></span></div><button class="publish-btn replay-btn" id="replayButton">Play again <span>↻</span></button></div></div>
+        </div>
+        <div class="bottom-bar">
+          <div class="tool-group studio-only"><button class="tool-button active" data-tool="select"><span>↖</span><small>Select</small></button><button class="tool-button" data-tool="move"><span>✥</span><small>Move</small></button><button class="tool-button" data-tool="scale"><span>⤢</span><small>Scale</small></button><button class="tool-button" data-tool="rotate"><span>⟳</span><small>Rotate</small></button></div>
+          <div class="bottom-separator studio-only"></div>
+          <div class="object-tools studio-only"><button class="object-button" data-place="platform"><span class="object-thumb thumb-platform">▰</span><span>Platform</span><kbd>1</kbd></button><button class="object-button" data-place="trampoline"><span class="object-thumb thumb-trampoline">⌁</span><span>Bounce pad</span><kbd>2</kbd></button><button class="object-button" data-place="star"><span class="object-thumb thumb-star">✦</span><span>Star</span><kbd>3</kbd></button><button class="object-button" data-place="hazard"><span class="object-thumb thumb-hazard">▲</span><span>Hazard</span><kbd>4</kbd></button></div>
+          <div class="play-controls"><span class="controls-title">HOW TO PLAY</span><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span><span class="control-copy">Move</span><span class="keycap space-key">SPACE</span><span class="control-copy">Jump</span></div>
+          <div class="bottom-right"><span class="online-avatars"><i class="online-avatar">J</i><i class="online-avatar mia">M</i><i class="online-avatar plus">+</i></span><span class="collab-label">2 collaborators</span><button class="chat-toggle" id="chatToggle">☰</button></div>
+        </div>
+      </section>
+
+      <aside class="right-panel panel studio-only">
+        <div class="right-tabs"><button class="right-tab active" data-pane="properties">Properties</button><button class="right-tab" data-pane="assets">Assets</button></div>
+        <div class="property-content" id="propertiesPane">
+          <div class="selected-object"><div class="selected-icon">▰</div><div><strong id="selectedName">Cloud Platform</strong><span>Part · Workspace</span></div><button class="more-button">•••</button></div>
+          <div class="property-section"><div class="section-title">TRANSFORM <span>⌄</span></div><label class="field-label">Position</label><div class="vector-fields"><label><i class="axis-x">X</i><input id="posX" value="0" inputmode="decimal"></label><label><i class="axis-y">Y</i><input id="posY" value="2" inputmode="decimal"></label><label><i class="axis-z">Z</i><input id="posZ" value="0" inputmode="decimal"></label></div><label class="field-label second-label">Size</label><div class="vector-fields"><label><i class="axis-x">X</i><input value="8" id="sizeX"></label><label><i class="axis-y">Y</i><input value="1" id="sizeY"></label><label><i class="axis-z">Z</i><input value="8" id="sizeZ"></label></div></div>
+          <div class="property-section"><div class="section-title">APPEARANCE <span>⌄</span></div><label class="field-label">Color</label><div class="color-row"><button class="swatch active" data-color="#55d6be" style="--swatch:#55d6be"></button><button class="swatch" data-color="#8b7cff" style="--swatch:#8b7cff"></button><button class="swatch" data-color="#ffb84d" style="--swatch:#ffb84d"></button><button class="swatch" data-color="#ff6f91" style="--swatch:#ff6f91"></button><button class="swatch" data-color="#f3f5ff" style="--swatch:#f3f5ff"></button><button class="color-picker" title="Choose color">＋</button></div><label class="field-label material-label">Material</label><button class="material-select">Smooth plastic <span>⌄</span></button></div>
+          <div class="property-section physics-section"><div class="section-title">BEHAVIOR <span>⌄</span></div><label class="toggle-row"><span><b>Anchored</b><small>Object stays in place</small></span><input type="checkbox" checked><i></i></label><label class="toggle-row"><span><b>Can collide</b><small>Players can stand on it</small></span><input type="checkbox" checked><i></i></label></div>
+          <button class="delete-object" id="deleteObject">⌫ &nbsp;Delete object</button>
+        </div>
+        <div class="property-content assets-pane hidden" id="assetsPane"><div class="asset-intro"><span>✧</span><strong>Build your world</strong><small>Drop in a ready-made asset to bring your ideas to life.</small></div><div class="asset-search search-box"><span>⌕</span><input placeholder="Search 10,000+ assets" /></div><div class="asset-categories"><button class="active">Featured</button><button>Nature</button><button>Shapes</button></div><div class="asset-grid"><button><span class="asset-art cloud-art">☁</span><small>Cloud pack</small></button><button><span class="asset-art palm-art">♣</span><small>Tropical palm</small></button><button><span class="asset-art portal-art">◉</span><small>Neon portal</small></button><button><span class="asset-art star-art">✦</span><small>Star pickup</small></button></div></div>
+        <div class="collab-card"><div class="collab-card-head"><span><span class="live-pulse"></span> LIVE COLLAB</span><button>•••</button></div><div class="collab-person"><i class="online-avatar mia">M</i><div><b>mia.builds</b><small>Editing just now</small></div><span class="person-status"></span></div><button class="share-room" id="shareRoom"><span>⌁</span> Copy room link</button></div>
+      </aside>
+    </main>
+    <div class="toast" id="toast"><span>✓</span> <b>Room link copied</b></div>
+    <div class="chat-popover" id="chatPopover"><div class="chat-head"><b>World chat</b><button id="closeChat">×</button></div><div class="chat-messages"><div><i class="online-avatar mia">M</i><p><b>mia.builds</b><span>this level is looking so good ✨</span></p></div><div><i class="online-avatar">J</i><p><b>you</b><span>Let's test it out!</span></p></div></div><form id="chatForm"><input placeholder="Message your team…" /><button>↑</button></form></div>
+    <input id="colorInput" type="color" hidden value="#55d6be" />
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
