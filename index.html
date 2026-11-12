@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b12">
+  <title>VANTA // Neon Strike</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <canvas id="game-canvas"></canvas>
+    <div class="scanlines"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Vanta home"><span class="brand-mark">V</span><span>VANTA<span class="brand-slash">//</span></span></a>
+      <nav class="main-nav"><button class="nav-link active" data-page="play">PLAY</button><button class="nav-link" data-page="armory">ARMORY <span class="nav-count" id="inventory-count">0</span></button></nav>
+      <div class="profile"><span class="online-dot"></span><span class="profile-name">GHOST_07</span><span class="rank-badge">◆ 02</span></div>
+    </header>
+
+    <section class="page play-page active" id="play-page">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> SECTOR 09 // LIVE COMBAT SIMULATION</p>
+        <h1>OWN THE<br><span class="hollow">NIGHT</span><span class="period">.</span></h1>
+        <p class="hero-sub">Precision is the difference between<br>the hunted and the <strong>headhunter.</strong></p>
+        <div class="hero-actions"><button class="primary-btn" id="deploy-btn"><span class="btn-icon">▶</span> DEPLOY <span class="btn-arrow">↗</span></button><div class="quick-stat"><span class="stat-label">CURRENT OP</span><strong>NEON DISTRICT</strong></div></div>
+        <div class="mission-card"><div class="mission-icon">⌖</div><div><span class="mission-kicker">MISSION BRIEF</span><p>Clear the district. No respawns.<br><b>Take the shot. Make it count.</b></p></div><span class="mission-index">01 / 03</span></div>
+      </div>
+      <aside class="side-panel">
+        <div class="panel-top"><span>FIELD REPORT</span><span class="live-tag"><i></i> LIVE</span></div>
+        <div class="map-preview"><div class="map-grid"></div><div class="map-rings"></div><div class="map-pin">⌖</div><div class="map-coord">35° 41' N<br>139° 41' E</div><span class="map-label">NEON DISTRICT</span></div>
+        <div class="brief-row"><span>OPERATORS</span><b>01 / 08</b></div><div class="brief-row"><span>THREAT LEVEL</span><b class="threat">ELEVATED <i>▲▲▲</i></b></div>
+        <div class="panel-divider"></div><div class="loadout-title"><span>ACTIVE LOADOUT</span><span>01</span></div>
+        <div class="weapon-preview"><div class="weapon-art"><div class="weapon-glow"></div><div class="weapon-silhouette">⌁</div></div><div><b id="preview-skin">CARBON / M4</b><small>ASSAULT RIFLE <span>·</span> 5.56MM</small></div><button class="edit-loadout" data-page="armory">↗</button></div>
+        <div class="panel-footer"><span>SERVER STATUS</span><span><i class="online-dot"></i> OPTIMAL <b>18ms</b></span></div>
+      </aside>
+      <div class="bottom-hint"><span>⌨</span> WASD TO MOVE <i>·</i> MOUSE TO AIM <i>·</i> CLICK TO FIRE</div>
+      <div class="version-tag">BUILD 0.9.4 <span>© VANTA COMBAT SYSTEMS</span></div>
+    </section>
+
+    <section class="page armory-page" id="armory-page">
+      <div class="armory-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> COLLECTION // PERSONAL ARMORY</p><h2>YOUR <span>ARSENAL</span></h2></div><div class="credits"><span>◈</span> <b id="credit-count">1,250</b><small> CREDITS</small></div></div>
+      <div class="armory-content">
+        <div class="collection-main"><div class="section-heading"><span>WEAPON SKINS <small id="skin-total">0 ITEMS</small></span><div class="sort-label">SORT: <b>RARITY</b> <span>⌄</span></div></div><div id="skin-grid" class="skin-grid"></div></div>
+        <aside class="crate-panel"><div class="crate-graphic"><div class="crate-aura"></div><div class="crate-box"><div class="crate-top"></div><div class="crate-front"><span>V</span><i>SUPPLY<br>DROP</i></div><div class="crate-side"></div></div><div class="crate-sparks">✦　 ·　 ✧</div></div><div class="crate-copy"><span class="rare-tag">✦ LIMITED DROP</span><h3>AFTER DARK<br>SUPPLY CRATE</h3><p>Four weapon finishes. One chance to pull a legend.</p><div class="drop-rates"><span><i class="rarity-dot legendary"></i> LEGENDARY <b>3%</b></span><span><i class="rarity-dot epic"></i> EPIC <b>12%</b></span><span><i class="rarity-dot rare"></i> RARE <b>30%</b></span></div><button class="open-crate-btn" id="open-crate"><span>✦</span> OPEN CRATE <b>◈ 250</b></button><small class="crate-note">COSMETIC ONLY · NO REAL-MONEY PURCHASES</small></div></aside>
+      </div>
+      <div class="version-tag">BUILD 0.9.4 <span>COLLECTION SYNCED</span></div>
+    </section>
+
+    <section class="game-hud" id="game-hud" aria-hidden="true">
+      <div class="hud-top-left"><span class="hud-logo">V<span>//</span></span><span class="hud-map">NEON DISTRICT <small>SECTOR 09</small></span></div>
+      <div class="objective"><span class="objective-dot"></span> ELIMINATE ALL HOSTILES <b id="enemy-counter">0 / 0</b></div>
+      <div class="hud-top-right"><span id="timer">00:00</span><span class="hud-round">ROUND <b>01</b></span></div>
+      <div class="crosshair"><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="hit-marker" id="hit-marker">✕</div>
+      <div class="damage-vignette" id="damage-vignette"></div>
+      <div class="hud-bottom-left"><div class="health-line"><span>VITALS</span><b id="health-value">100</b></div><div class="health-bar"><i id="health-bar"></i></div><div class="armor-line">▰ <span>ARMOR</span><b>75</b></div></div>
+      <div class="hud-bottom-right"><div class="ammo-count"><b id="ammo-value">30</b><span>/ 120</span></div><div class="ammo-caption">5.56 × 45 MM <small>CARBON / M4</small></div><div class="weapon-slot"><span>01</span><b>▰</b></div></div>
+      <div class="center-notice" id="center-notice"></div>
+      <div class="game-controls"><kbd>W A S D</kbd> MOVE <kbd>SHIFT</kbd> SPRINT <kbd>R</kbd> RELOAD <kbd>ESC</kbd> PAUSE</div>
+      <button id="exit-game" class="exit-game">✕ EXIT</button>
+      <div class="pause-overlay" id="pause-overlay"><div><span class="pause-kicker">OPERATION PAUSED</span><h2>TAKE A<br><em>BREATHER.</em></h2><p>Your squad is holding position.</p><button id="resume-btn" class="primary-btn">▶ &nbsp; RESUME MISSION</button><button id="quit-btn" class="pause-quit">RETURN TO BASE</button></div></div>
+      <div class="result-overlay" id="result-overlay"><div class="result-card"><span class="result-kicker">MISSION COMPLETE // SECTOR 09</span><h2 id="result-title">DISTRICT<br><em>SECURED.</em></h2><p id="result-copy">Clean work, operator.</p><div class="result-stats"><span>HOSTILES <b id="result-kills">0</b></span><span>TIME <b id="result-time">00:00</b></span></div><button id="result-button" class="primary-btn">RETURN TO BASE ↗</button></div></div>
+    </section>
+
+    <div class="crate-modal" id="crate-modal" aria-hidden="true"><div class="crate-modal-card"><button class="modal-close" id="modal-close">✕</button><span class="result-kicker">AFTER DARK // SUPPLY DROP</span><div class="reveal-shine"></div><div class="revealed-skin-art" id="revealed-art">✦</div><span class="revealed-rarity" id="revealed-rarity">LEGENDARY</span><h2 id="revealed-name">NIGHTFALL</h2><p id="revealed-desc">A finish worthy of the dark.</p><button class="primary-btn" id="claim-skin">ADD TO ARMORY</button></div></div>
+    <div class="toast" id="toast"></div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
